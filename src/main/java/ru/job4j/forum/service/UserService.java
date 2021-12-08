@@ -1,11 +1,9 @@
 package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.forum.model.User;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import ru.job4j.forum.store.UserRepository;
 
 /**
  * Класс UserService
@@ -14,29 +12,24 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 1.0
  */
 @Service
+@Transactional
 public class UserService {
 
-    private final Map<String, User> users = new HashMap<>();
-    private final AtomicInteger count = new AtomicInteger();
+    private final UserRepository users;
 
-    public UserService() {
-        users.put("root@local", User.of(
-                count.getAndIncrement(),
-                "Admin",
-                "root@local",
-                "root"));
+    public UserService(UserRepository users) {
+        this.users = users;
     }
 
     public void saveUser(User user) {
         User userByEmail = findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            user.setId(count.getAndIncrement());
+            users.save(user);
         }
-        users.put(user.getEmail(), user);
     }
 
     public User findUserByEmail(String email) {
-        return users.get(email);
+        return users.findUserByEmail(email);
     }
 
 }

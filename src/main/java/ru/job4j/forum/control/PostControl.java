@@ -26,12 +26,7 @@ public class PostControl {
     }
 
     @PostMapping("/save")
-    public String savePost(@ModelAttribute Post post,
-                           @RequestParam(value = "id", defaultValue = "0", required = false) int id) {
-        if (id != 0) {
-            Post savedPost = postService.findById(id);
-            post.setAnswers(savedPost.getAnswers());
-        }
+    public String savePost(@ModelAttribute Post post) {
         postService.save(post);
         return "redirect:/index?login=true&username=" + post.getAuthor();
     }
@@ -55,8 +50,8 @@ public class PostControl {
 
     @PostMapping("/saveAnswer")
     public String saveAnswer(@ModelAttribute Answer answer,
-                             @RequestParam(value = "id", required = false) int id) {
-        postService.addAnswerToPost(id, answer);
-        return "redirect:/post?id=" + id;
+                             @RequestParam(value = "post_id", required = false) int postId) {
+        postService.addAnswerToPost(postId, answer);
+        return "redirect:/post?id=" + postId;
     }
 }

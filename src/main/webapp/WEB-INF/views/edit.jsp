@@ -30,7 +30,6 @@
 
 <c:if test="${not empty post}">
     <c:set value="${post.author}" var="username"/>
-    <c:set value="${post.id}" var="post_id"/>
     <h1>Редактировать тему</h1>
 </c:if>
 <c:if test="${empty post}">

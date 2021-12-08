@@ -1,5 +1,6 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,13 +13,19 @@ import java.util.Objects;
  * @author Evgeniy Zaytsev
  * @version 1.0
  */
+@Entity
+@Table(name = "posts")
 public class Post {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String author;
     private String description;
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Answer> answers = new ArrayList<>();
 
     public static Post of(int id, String name, String author, String description) {

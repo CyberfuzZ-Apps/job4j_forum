@@ -1,11 +1,13 @@
 package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.forum.model.Answer;
 import ru.job4j.forum.model.Post;
+import ru.job4j.forum.store.AnswerRepository;
+import ru.job4j.forum.store.PostRepository;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Класс PostService
@@ -14,56 +16,49 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 1.0
  */
 @Service
+@Transactional
 public class PostService {
 
-    private final Map<Integer, Post> posts = new HashMap<>();
-    private final AtomicInteger count = new AtomicInteger();
+    private final PostRepository posts;
+    private final AnswerRepository answers;
 
-    public PostService() {
-        int id = count.incrementAndGet();
-        Post post = Post.of(id, "Горячие клавиши в IntelliJ IDEA",
-                "Admin",
-                "Какое есть сочетание клавиш, чтобы извлечь переменную из "
-                        + "возвращаемого значения метода?");
-        post.addAnswer(Answer.of(
-                1,
-                "Если на винде, то попробуй Ctrl + Alt + V",
-                "Евгений"));
-        post.addAnswer(Answer.of(
-                2,
-                "Если ты на маке, то попробуй ⌘ + ⌥ + V",
-                "Николай"));
-        post.addAnswer(Answer.of(
-                3,
-                "Можно самому настроить горячие клавиши в настройках Идеи",
-                "Иван"));
-        posts.put(id, post);
+    public PostService(PostRepository posts, AnswerRepository answers) {
+        this.posts = posts;
+        this.answers = answers;
     }
 
     public void save(Post post) {
-        Post postById = findById(post.getId());
-        if (postById == null) {
-            post.setId(count.incrementAndGet());
+        if (posts.existsById(post.getId())) {
+            posts.update(
+                    post.getId(),
+                    post.getAuthor(),
+                    post.getDescription(),
+                    post.getName(),
+                    post.getCreated());
+        } else {
+            posts.save(post);
         }
-        posts.put(post.getId(), post);
     }
 
     public Post findById(int id) {
-        return posts.get(id);
+        Optional<Post> post = posts.findById(id);
+        return post.orElse(null);
     }
 
     public void delete(int id) {
-        posts.remove(id);
+        if (posts.existsById(id)) {
+            posts.deleteById(id);
+        }
     }
 
     public Collection<Post> findAll() {
-        return posts.values();
+        return (Collection<Post>) posts.findAll();
     }
 
     public void addAnswerToPost(int postId, Answer answer) {
-        Post post = findById(postId);
-        if (post != null) {
-            post.addAnswer(answer);
-        }
+        Answer savedAnswer = answers.save(answer);
+        Optional<Post> post = posts.findById(postId);
+        post.ifPresent(value -> value.addAnswer(savedAnswer));
     }
+
 }

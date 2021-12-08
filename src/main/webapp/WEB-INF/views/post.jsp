@@ -42,10 +42,10 @@
     </div>
 </div>
 <br>
-<form action="<c:url value="/saveAnswer?id=${post.id}"/> " method="post">
+<form action="<c:url value="/saveAnswer?post_id=${post.id}"/> " method="post">
     <div class="container">
         <div class="row">Ответить:&nbsp;
-            <input name='answer' placeholder="Введите свой ответ" required>
+            <input name="answerName" placeholder="Введите свой ответ" required>
             <input name='author' value="${username}" hidden>
             &nbsp;
             <div>
@@ -65,16 +65,16 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${post.answers}" var="answer">
+        <c:forEach items="${post.answers}" var="answerName">
             <tr>
                 <td>
-                    <c:out value="${answer.answer}"/>
+                    <c:out value="${answerName.answerName}"/>
                 </td>
                 <td>
-                    <c:out value="${answer.author}"/>
+                    <c:out value="${answerName.author}"/>
                 </td>
                 <td>
-                    <fmt:formatDate value="${answer.created}" pattern="dd.MM.yyyy - k:mm"/>
+                    <fmt:formatDate value="${answerName.created}" pattern="dd.MM.yyyy - k:mm"/>
                 </td>
             </tr>
         </c:forEach>

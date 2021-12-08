@@ -1,5 +1,6 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -8,8 +9,12 @@ import java.util.Objects;
  * @author Evgeniy Zaytsev
  * @version 1.0
  */
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String email;

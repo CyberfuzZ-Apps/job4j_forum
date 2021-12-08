@@ -16,7 +16,7 @@ import ru.job4j.forum.service.PostService;
 @Controller
 public class EditControl {
 
-    private PostService postService;
+    private final PostService postService;
 
     public EditControl(PostService postService) {
         this.postService = postService;

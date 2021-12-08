@@ -58,7 +58,7 @@
                 <th scope="col">Тема</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Дата создания</th>
-                <th scope="col">Действия</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>

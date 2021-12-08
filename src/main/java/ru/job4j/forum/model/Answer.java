@@ -1,5 +1,6 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,17 +11,21 @@ import java.util.Objects;
  * @author Evgeniy Zaytsev
  * @version 1.0
  */
+@Entity
+@Table(name = "answers")
 public class Answer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String answer;
+    private String answerName;
     private String author;
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-    public static Answer of(int id, String answer, String author) {
+    public static Answer of(int id, String answerName, String author) {
         Answer answer1 = new Answer();
         answer1.id = id;
-        answer1.answer = answer;
+        answer1.answerName = answerName;
         answer1.author = author;
         return answer1;
     }
@@ -33,12 +38,12 @@ public class Answer {
         this.id = id;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswerName() {
+        return answerName;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswerName(String answerName) {
+        this.answerName = answerName;
     }
 
     public String getAuthor() {
@@ -78,7 +83,7 @@ public class Answer {
     public String toString() {
         return "Answer{"
                 + "id=" + id
-                + ", answer='" + answer + '\''
+                + ", answer='" + answerName + '\''
                 + ", author='" + author + '\''
                 + ", created=" + created
                 + '}';
