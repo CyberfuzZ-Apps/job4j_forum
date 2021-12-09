@@ -1,9 +1,12 @@
 package ru.job4j.forum.service;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.forum.model.Answer;
 import ru.job4j.forum.model.Post;
+import ru.job4j.forum.model.User;
 import ru.job4j.forum.store.AnswerRepository;
 import ru.job4j.forum.store.PostRepository;
 
@@ -58,6 +61,13 @@ public class PostService {
         Answer savedAnswer = answers.save(answer);
         Optional<Post> post = posts.findById(postId);
         post.ifPresent(value -> value.addAnswer(savedAnswer));
+    }
+
+    @Transactional
+    public void deleteAnswer(int answerId, int postId) {
+        Post post = findById(postId);
+        List<Answer> answers = post.getAnswers();
+        answers.removeIf(answer -> answer.getId() == answerId);
     }
 
 }

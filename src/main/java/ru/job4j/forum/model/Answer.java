@@ -22,14 +22,6 @@ public class Answer {
     private String author;
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-    public static Answer of(int id, String answerName, String author) {
-        Answer answer1 = new Answer();
-        answer1.id = id;
-        answer1.answerName = answerName;
-        answer1.author = author;
-        return answer1;
-    }
-
     public int getId() {
         return id;
     }

@@ -22,20 +22,12 @@ public class Post {
     private int id;
     private String name;
     private String author;
+    private String nickname;
     private String description;
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
-
-    public static Post of(int id, String name, String author, String description) {
-        Post post = new Post();
-        post.id = id;
-        post.name = name;
-        post.author = author;
-        post.description = description;
-        return post;
-    }
 
     public int getId() {
         return id;
@@ -89,6 +81,14 @@ public class Post {
         answers.add(answer);
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -112,8 +112,10 @@ public class Post {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", author='" + author + '\''
+                + ", nickname='" + nickname + '\''
                 + ", description='" + description + '\''
                 + ", created=" + created
+                + ", answers=" + answers
                 + '}';
     }
 }

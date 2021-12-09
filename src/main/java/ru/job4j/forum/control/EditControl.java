@@ -23,14 +23,12 @@ public class EditControl {
     }
 
     @GetMapping("/edit")
-    public String editPage(@RequestParam(value = "username", required = false) String username,
-                           @RequestParam(value = "id", defaultValue = "0", required = false) int id,
+    public String editPage(@RequestParam(value = "id", defaultValue = "0", required = false) int id,
                            Model model) {
         if (id != 0) {
             Post post = postService.findById(id);
             model.addAttribute("post", post);
         }
-        model.addAttribute("username", username);
         return "edit";
     }
 

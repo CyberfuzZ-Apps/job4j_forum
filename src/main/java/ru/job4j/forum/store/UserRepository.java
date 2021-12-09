@@ -10,7 +10,5 @@ import ru.job4j.forum.model.User;
  * @version 1.0
  */
 public interface UserRepository extends CrudRepository<User, Integer> {
-
-    User findUserByEmail(String email);
-
+    User findByUsername(String email);
 }
