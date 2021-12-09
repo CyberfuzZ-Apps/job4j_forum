@@ -1,7 +1,7 @@
 package ru.job4j.forum.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Класс User
@@ -16,18 +16,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
     private String username;
-    private String email;
     private String password;
+    private boolean enabled;
 
-    public static User of(int id, String username, String email, String password) {
-        User user = new User();
-        user.id = id;
-        user.username = username;
-        user.email = email;
-        user.password = password;
-        return user;
-    }
+    @ManyToOne
+    private Authority authority;
 
     public int getId() {
         return id;
@@ -53,12 +48,28 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Authority getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
@@ -78,13 +89,4 @@ public class User {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "User{"
-                + "id=" + id
-                + ", username='" + username + '\''
-                + ", email='" + email + '\''
-                + ", password='" + password + '\''
-                + '}';
-    }
 }

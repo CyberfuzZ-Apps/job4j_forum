@@ -29,6 +29,8 @@
 </head>
 <body>
 
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
 <div class="container mt-3">
     <div class="row">
         <h4>Форум job4j</h4>
@@ -40,13 +42,13 @@
                 ${username}
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/login"/>">Выйти</a>
+                <a class="nav-link" href="<c:url value="/logout"/>">Выйти</a>
             </li>
         </ul>
     </div>
 
     <br>
-    <a href="<c:url value='/edit?username=${username}'/>">
+    <a href="<c:url value='/edit'/>">
         <button class="btn btn-success">Добавить новую тему</button>
     </a>
     <br>
@@ -65,7 +67,7 @@
             <c:forEach items="${posts}" var="post">
                 <tr>
                     <td>
-                        <a href="<c:url value="/post?id=${post.id}&username=${username}"/>"><c:out value="${post.name}"/></a>
+                        <a href="<c:url value="/post?id=${post.id}"/>"><c:out value="${post.name}"/></a>
                     </td>
                     <td>
                         <c:out value="${post.author}"/>
@@ -84,7 +86,7 @@
                         </a>
                         <br>
                         <br>
-                        <a id="delete" href="<c:url value="/delete?id=${post.id}&username=${username}"/>">
+                        <a id="delete" href="<c:url value="/delete?id=${post.id}"/>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

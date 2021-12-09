@@ -26,4 +26,5 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
                 @Param("description") String description,
                 @Param("name") String name,
                 @Param("created") Timestamp created);
+
 }

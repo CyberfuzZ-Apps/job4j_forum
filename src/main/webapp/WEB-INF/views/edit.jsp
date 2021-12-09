@@ -28,6 +28,8 @@
 </head>
 <body>
 
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
 <c:if test="${not empty post}">
     <c:set value="${post.author}" var="username"/>
     <h1>Редактировать тему</h1>
@@ -37,11 +39,11 @@
 </c:if>
 
 <div class="row">
-    <a class="nav-link" href="<c:url value="/index?login=true&username=${username}"/>">Главная</a>
+    <a class="nav-link" href="<c:url value="/index"/>">Главная</a>
     &nbsp;&nbsp;
     ${username}
 
-    <a class="nav-link" href="<c:url value="/login"/>">Выйти</a>
+    <a class="nav-link" href="<c:url value="/logout"/>">Выйти</a>
 </div>
 <br>
 <br>
@@ -66,6 +68,7 @@
         <tr>
             <td>
                 <input type="text" name="author" value="${username}" hidden>
+                <input type="text" name="userEmail" value="${user.username}" hidden>
                 <c:if test="${not empty post}">
                     <input type="text" name="id" value="${post.id}" hidden>
                 </c:if>

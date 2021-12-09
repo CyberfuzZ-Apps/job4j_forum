@@ -3,7 +3,7 @@
 <html>
 <head>
 
-    <link href="../../styles/login.css" rel="stylesheet" type="text/css" />
+    <link href="css/login.css" rel="stylesheet" type="text/css" />
 
     <title>Регистрация</title>
 </head>
@@ -24,8 +24,8 @@
 
         <!-- Reg Form -->
         <form name='login' action="<c:url value='/reg'/>" method='POST'>
-            <input class="fadeIn second" type='text' name='username' placeholder="Имя пользователя" required>
-            <input class="fadeIn second" type="email" name="email" placeholder="Почта" required>
+            <input class="fadeIn second" type='text' name='name' placeholder="Имя пользователя" required>
+            <input class="fadeIn second" type="email" name="username" placeholder="Почта" required>
             <input class="fadeIn third" type='password' name='password' placeholder="Пароль" required>
             <input class="fadeIn fourth" name="submit" type="submit" value="Сохранить">
         </form>

@@ -25,17 +25,8 @@ public class Post {
     private String description;
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
-
-    public static Post of(int id, String name, String author, String description) {
-        Post post = new Post();
-        post.id = id;
-        post.name = name;
-        post.author = author;
-        post.description = description;
-        return post;
-    }
 
     public int getId() {
         return id;
@@ -114,6 +105,7 @@ public class Post {
                 + ", author='" + author + '\''
                 + ", description='" + description + '\''
                 + ", created=" + created
+                + ", answers=" + answers
                 + '}';
     }
 }
