@@ -16,7 +16,6 @@ import java.util.*;
  * @version 1.0
  */
 @Service
-@Transactional
 public class PostService {
 
     private final PostRepository posts;
@@ -27,6 +26,7 @@ public class PostService {
         this.answers = answers;
     }
 
+    @Transactional
     public void save(Post post) {
         if (posts.existsById(post.getId())) {
             posts.update(
@@ -46,15 +46,14 @@ public class PostService {
     }
 
     public void delete(int id) {
-        if (posts.existsById(id)) {
-            posts.deleteById(id);
-        }
+        posts.deleteById(id);
     }
 
     public Collection<Post> findAll() {
         return (Collection<Post>) posts.findAll();
     }
 
+    @Transactional
     public void addAnswerToPost(int postId, Answer answer) {
         Answer savedAnswer = answers.save(answer);
         Optional<Post> post = posts.findById(postId);
