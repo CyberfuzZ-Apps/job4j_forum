@@ -1,6 +1,7 @@
 # Job4j_forum
 
 [![Build](https://github.com/CyberfuzZ-Apps/job4j_forum/actions/workflows/maven.yml/badge.svg)](https://github.com/CyberfuzZ-Apps/job4j_forum/actions/workflows/maven.yml)
+[![codecov](https://codecov.io/gh/CyberfuzZ-Apps/job4j_forum/branch/master/graph/badge.svg?token=OCB0LGBI2G)](https://codecov.io/gh/CyberfuzZ-Apps/job4j_forum)
 
 ## О проекте:
 
