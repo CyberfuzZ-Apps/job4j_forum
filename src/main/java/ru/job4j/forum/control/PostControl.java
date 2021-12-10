@@ -31,14 +31,14 @@ public class PostControl {
 
     @PostMapping("/save")
     public String savePost(@ModelAttribute Post post) {
-        System.out.println(post);
+        User user = users.findByUsername(post.getAuthor());
+        post.setNickname(user.getName());
         postService.save(post);
-        return "redirect:/index?login=true&username=" + post.getAuthor();
+        return "redirect:/index";
     }
 
     @GetMapping("/delete")
-    public String deletePost(@RequestParam(value = "id", required = false) int id,
-                             @RequestParam(value = "username", required = false) String username) {
+    public String deletePost(@RequestParam(value = "id", required = false) int id) {
         postService.delete(id);
         return "redirect:/index?login=true";
     }

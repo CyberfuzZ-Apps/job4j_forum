@@ -22,6 +22,7 @@ public class Post {
     private int id;
     private String name;
     private String author;
+    private String nickname;
     private String description;
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
@@ -80,6 +81,14 @@ public class Post {
         answers.add(answer);
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,6 +112,7 @@ public class Post {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", author='" + author + '\''
+                + ", nickname='" + nickname + '\''
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", answers=" + answers

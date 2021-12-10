@@ -31,7 +31,6 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 <c:if test="${not empty post}">
-    <c:set value="${post.author}" var="username"/>
     <h1>Редактировать тему</h1>
 </c:if>
 <c:if test="${empty post}">
@@ -67,11 +66,12 @@
         </tr>
         <tr>
             <td>
-                <input type="text" name="author" value="${username}" hidden>
-                <input type="text" name="userEmail" value="${user.username}" hidden>
+                <c:set value="${user.username}" var="author"/>
                 <c:if test="${not empty post}">
                     <input type="text" name="id" value="${post.id}" hidden>
+                    <c:set value="${post.author}" var="author"/>
                 </c:if>
+                <input type="text" name="author" value="${author}" hidden>
             </td>
         </tr>
         <tr>
