@@ -6,7 +6,6 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.forum.model.User;
 import ru.job4j.forum.store.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;

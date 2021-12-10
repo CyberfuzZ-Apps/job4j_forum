@@ -1,16 +1,15 @@
 package ru.job4j.forum.service;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.forum.model.Answer;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.model.User;
 import ru.job4j.forum.store.AnswerRepository;
 import ru.job4j.forum.store.PostRepository;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Класс PostService

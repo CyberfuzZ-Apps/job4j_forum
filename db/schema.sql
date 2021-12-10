@@ -24,6 +24,24 @@ CREATE TABLE IF NOT EXISTS posts_answers
     answers_id INTEGER NOT NULL UNIQUE REFERENCES answers (id)
 );
 
+INSERT INTO posts (author, created, description, name, nickname)
+VALUES (
+        'root@local',
+        '2021-12-10 10:08:44.604517',
+        'Это форум обо всём. Можно общаться на любые темы.',
+        'О чем этот форум?',
+        'Admin');
+INSERT INTO posts (author, created, description, name, nickname)
+VALUES (
+        'root@local',
+        '2021-12-10 10:11:23.728425',
+        '1 - Админ всегда прав!)
+2 - Если Админ не прав, смотри пункт 1.
+3 - Мат запрещен.
+4 - Оскорбления по расовому или половому признаку, а также любые другие оскорбления - БАН! ',
+        'Правила форума!',
+        'Admin');
+
 /* Security */
 
 CREATE TABLE authorities
@@ -47,7 +65,9 @@ VALUES ('ROLE_USER');
 INSERT INTO authorities (authority)
 VALUES ('ROLE_ADMIN');
 
-INSERT INTO users (username, email, password, enabled, authority_id)
-VALUES ('Admin', 'root@local',
-        '$2a$10$wY1twJhMQjGVxv4y5dBC5ucCBlzkzT4FIGa4FNB/pS9GaXC2wm9/W', TRUE,
+INSERT INTO users (username, name, password, enabled, authority_id)
+VALUES ('root@local',
+        'Admin',
+        '$2a$10$wY1twJhMQjGVxv4y5dBC5ucCBlzkzT4FIGa4FNB/pS9GaXC2wm9/W',
+        TRUE,
         (SELECT id FROM authorities WHERE authority = 'ROLE_ADMIN'));
