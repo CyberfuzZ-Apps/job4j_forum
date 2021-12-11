@@ -1,6 +1,5 @@
 package ru.job4j.forum.control;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,7 +43,6 @@ public class PostControlTest {
                 .andExpect(view().name("post"));
     }
 
-    @Ignore
     @Test
     @WithMockUser
     public void shouldReturnDefaultMessageWhenDelete() throws Exception {
@@ -56,7 +54,6 @@ public class PostControlTest {
                 .andExpect(view().name("redirect:/index?login=true"));
     }
 
-    @Ignore
     @Test
     @WithMockUser
     public void shouldReturnDefaultMessageWhenDeleteAnswer() throws Exception {
