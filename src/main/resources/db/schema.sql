@@ -30,7 +30,9 @@ VALUES (
         '2021-12-10 10:08:44.604517',
         'Это форум обо всём. Можно общаться на любые темы.',
         'О чем этот форум?',
-        'Admin');
+        'Admin')
+ON CONFLICT DO NOTHING;
+
 INSERT INTO posts (author, created, description, name, nickname)
 VALUES (
         'root@local',
@@ -40,17 +42,18 @@ VALUES (
 3 - Мат запрещен.
 4 - Оскорбления по расовому или половому признаку, а также любые другие оскорбления - БАН! ',
         'Правила форума!',
-        'Admin');
+        'Admin')
+ON CONFLICT DO NOTHING;
 
 /* Security */
 
-CREATE TABLE authorities
+CREATE TABLE IF NOT EXISTS authorities
 (
     id        SERIAL PRIMARY KEY,
     authority VARCHAR(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     id           SERIAL PRIMARY KEY,
     name         VARCHAR(100)  NOT NULL,
@@ -61,13 +64,17 @@ CREATE TABLE users
 );
 
 INSERT INTO authorities (authority)
-VALUES ('ROLE_USER');
+VALUES ('ROLE_USER')
+ON CONFLICT DO NOTHING;
+
 INSERT INTO authorities (authority)
-VALUES ('ROLE_ADMIN');
+VALUES ('ROLE_ADMIN')
+ON CONFLICT DO NOTHING;
 
 INSERT INTO users (username, name, password, enabled, authority_id)
 VALUES ('root@local',
         'Admin',
         '$2a$10$wY1twJhMQjGVxv4y5dBC5ucCBlzkzT4FIGa4FNB/pS9GaXC2wm9/W',
         TRUE,
-        (SELECT id FROM authorities WHERE authority = 'ROLE_ADMIN'));
+        (SELECT id FROM authorities WHERE authority = 'ROLE_ADMIN'))
+ON CONFLICT DO NOTHING;
