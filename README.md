@@ -65,7 +65,7 @@ Tests:
 
 Перед запуском приложения создайте базу данных с именем `forum`.
 
-- `mvn inslall` - сборка в JAR - архив
+- `mvn install` - сборка в JAR - архив
   - `java -jar target/forum.jar` - запуск из командной строки / терминала
     - либо:
   - `target/forum.jar` - запуск с помощью Java(TM) Platform
